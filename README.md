@@ -1,4 +1,3 @@
-
 ---
 
 ### Performance Profiling Task
@@ -35,33 +34,34 @@ Further optimizations could include analyzing dependencies and fine-tuning state
 ### Visual Comparison
 
 #### Before Optimization:
+
 - **Sort by Name**
 - **Sort by Population**
   - ![Flamegraph Before](public/3_before_flamegraph.png)
   - ![Ranked Before](public/3_before_ranked.png)
   - ![Timeline Before](public/3_before_timeline.png)
 
-  
-
 #### After Optimization:
+
 - **Sort by Name**
 - **Sort by Population**
   - ![Flamegraph After](public/3_after_flamegraph.png)
   - ![Ranked After](public/3_after_ranked.png)
   - ![Timeline After](public/3_after_timeline.png)
 
-
 ---
 
 ### Updated Measurements
 
 #### Before Optimization:
+
 - **Priority**: Normal
 - **Committed at**: 7.8s
 - **Render duration**: 130.1 ms
 - **What caused this update?**: CountryList
 
 #### After Optimization:
+
 - **Priority**: Normal
 - **Committed at**: 17.75
 - **Render duration**: 2 ms
@@ -70,4 +70,4 @@ Further optimizations could include analyzing dependencies and fine-tuning state
 
 ---
 
-This updated report reflects the significant performance improvements achieved through optimization, with render duration reduced from 130.1 ms to 2 ms, and a corresponding reduction in the number of renders. The images are now linked using Markdown syntax for easy viewing in GitHub README or Markdown preview. If you prefer text links instead of images, let me know, and I can adjust the format accordingly.
+This updated report reflects the significant performance improvements achieved through optimization, with render duration reduced from 130.1 ms to 2 ms, and a corresponding reduction in the number of renders. The images are now linked using Markdown syntax for easy viewing in GitHub README or Markdown preview.

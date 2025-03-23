@@ -10,7 +10,6 @@ function App() {
   const [error, setError] = useState<string | null>(null);
   const [visitedCountries, setVisitedCountries] = useState<string[]>([]);
 
-
   useEffect(() => {
     const getCountries = async () => {
       try {
@@ -19,7 +18,9 @@ function App() {
         setCountries(data);
         setError(null);
       } catch (err) {
-        setError('An error occurred while fetching data. Please try again later.');
+        setError(
+          'An error occurred while fetching data. Please try again later.'
+        );
         console.error(err);
       } finally {
         setLoading(false);
@@ -29,7 +30,6 @@ function App() {
     getCountries();
   }, []);
 
-
   useEffect(() => {
     const storedVisitedCountries = localStorage.getItem('visitedCountries');
     if (storedVisitedCountries) {
@@ -37,16 +37,14 @@ function App() {
     }
   }, []);
 
-
   useEffect(() => {
     localStorage.setItem('visitedCountries', JSON.stringify(visitedCountries));
   }, [visitedCountries]);
 
-
   const handleToggleVisited = useCallback((cca3: string) => {
-    setVisitedCountries(prev => {
+    setVisitedCountries((prev) => {
       if (prev.includes(cca3)) {
-        return prev.filter(code => code !== cca3);
+        return prev.filter((code) => code !== cca3);
       } else {
         return [...prev, cca3];
       }
@@ -57,7 +55,9 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1 className="App-title">World Countries</h1>
-        <p className="App-subtitle">Browse, filter and mark visited countries</p>
+        <p className="App-subtitle">
+          Browse, filter and mark visited countries
+        </p>
       </header>
 
       {loading ? (
@@ -65,10 +65,10 @@ function App() {
       ) : error ? (
         <div className="error">{error}</div>
       ) : (
-        <CountryList 
-          countries={countries} 
-          visitedCountries={visitedCountries} 
-          onToggleVisited={handleToggleVisited} 
+        <CountryList
+          countries={countries}
+          visitedCountries={visitedCountries}
+          onToggleVisited={handleToggleVisited}
         />
       )}
     </div>

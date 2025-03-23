@@ -8,46 +8,58 @@ interface CountryListProps {
   onToggleVisited: (cca3: string) => void;
 }
 
-const CountryList: React.FC<CountryListProps> = ({ countries, visitedCountries, onToggleVisited }) => {
+const CountryList: React.FC<CountryListProps> = ({
+  countries,
+  visitedCountries,
+  onToggleVisited,
+}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('');
   const [sortConfig, setSortConfig] = useState<SortConfig>({
     field: 'name',
-    direction: 'asc'
+    direction: 'asc',
   });
 
   const regions = useMemo(() => {
-    const uniqueRegions = new Set(countries.map(country => country.region));
+    const uniqueRegions = new Set(countries.map((country) => country.region));
     return Array.from(uniqueRegions).sort();
   }, [countries]);
 
-  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-  }, []);
+  const handleSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchTerm(e.target.value);
+    },
+    []
+  );
 
-  const handleRegionChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedRegion(e.target.value);
-  }, []);
+  const handleRegionChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setSelectedRegion(e.target.value);
+    },
+    []
+  );
 
   const handleSortChange = useCallback((field: 'name' | 'population') => {
-    setSortConfig(prevConfig => {
+    setSortConfig((prevConfig) => {
       if (prevConfig.field === field) {
         return {
           ...prevConfig,
-          direction: prevConfig.direction === 'asc' ? 'desc' : 'asc'
+          direction: prevConfig.direction === 'asc' ? 'desc' : 'asc',
         };
       } else {
         return {
           field,
-          direction: 'asc'
+          direction: 'asc',
         };
       }
     });
   }, []);
 
   const filteredAndSortedCountries = useMemo(() => {
-    const result = countries.filter(country => {
-      const matchesRegion = selectedRegion ? country.region === selectedRegion : true;
+    const result = countries.filter((country) => {
+      const matchesRegion = selectedRegion
+        ? country.region === selectedRegion
+        : true;
       const matchesSearch = searchTerm
         ? country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
         : true;
@@ -81,7 +93,7 @@ const CountryList: React.FC<CountryListProps> = ({ countries, visitedCountries, 
             className="search-input"
           />
         </div>
-        
+
         <div className="region-filter">
           <select
             value={selectedRegion}
@@ -89,33 +101,37 @@ const CountryList: React.FC<CountryListProps> = ({ countries, visitedCountries, 
             className="region-select"
           >
             <option value="">All regions</option>
-            {regions.map(region => (
+            {regions.map((region) => (
               <option key={region} value={region}>
                 {region}
               </option>
             ))}
           </select>
         </div>
-        
+
         <div className="sort-controls">
           <button
             onClick={() => handleSortChange('name')}
             className={`sort-button ${sortConfig.field === 'name' ? 'active' : ''}`}
           >
-            Name {sortConfig.field === 'name' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+            Name{' '}
+            {sortConfig.field === 'name' &&
+              (sortConfig.direction === 'asc' ? '↑' : '↓')}
           </button>
           <button
             onClick={() => handleSortChange('population')}
             className={`sort-button ${sortConfig.field === 'population' ? 'active' : ''}`}
           >
-            Population {sortConfig.field === 'population' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+            Population{' '}
+            {sortConfig.field === 'population' &&
+              (sortConfig.direction === 'asc' ? '↑' : '↓')}
           </button>
         </div>
       </div>
 
       <div className="countries-grid">
         {filteredAndSortedCountries.length > 0 ? (
-          filteredAndSortedCountries.map(country => (
+          filteredAndSortedCountries.map((country) => (
             <CountryCard
               key={country.cca3}
               country={country}
@@ -124,7 +140,9 @@ const CountryList: React.FC<CountryListProps> = ({ countries, visitedCountries, 
             />
           ))
         ) : (
-          <div className="no-results">No countries found matching your search criteria</div>
+          <div className="no-results">
+            No countries found matching your search criteria
+          </div>
         )}
       </div>
     </div>
