@@ -1,4 +1,4 @@
-// Serwis do pobierania danych z REST Countries API
+// Service for fetching data from REST Countries API
 
 export const fetchCountries = async () => {
   try {

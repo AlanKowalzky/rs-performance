@@ -10,7 +10,7 @@ function App() {
   const [error, setError] = useState<string | null>(null);
   const [visitedCountries, setVisitedCountries] = useState<string[]>([]);
 
-  // Pobieranie danych o krajach
+
   useEffect(() => {
     const getCountries = async () => {
       try {
@@ -19,7 +19,7 @@ function App() {
         setCountries(data);
         setError(null);
       } catch (err) {
-        setError('Wystąpił błąd podczas pobierania danych. Spróbuj ponownie później.');
+        setError('An error occurred while fetching data. Please try again later.');
         console.error(err);
       } finally {
         setLoading(false);
@@ -29,7 +29,7 @@ function App() {
     getCountries();
   }, []);
 
-  // Pobieranie odwiedzonych krajów z localStorage
+
   useEffect(() => {
     const storedVisitedCountries = localStorage.getItem('visitedCountries');
     if (storedVisitedCountries) {
@@ -37,12 +37,12 @@ function App() {
     }
   }, []);
 
-  // Zapisywanie odwiedzonych krajów do localStorage
+
   useEffect(() => {
     localStorage.setItem('visitedCountries', JSON.stringify(visitedCountries));
   }, [visitedCountries]);
 
-  // Funkcja do przełączania stanu odwiedzenia kraju
+
   const handleToggleVisited = useCallback((cca3: string) => {
     setVisitedCountries(prev => {
       if (prev.includes(cca3)) {
@@ -56,12 +56,12 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1 className="App-title">Kraje Świata</h1>
-        <p className="App-subtitle">Przeglądaj, filtruj i zaznaczaj odwiedzone kraje</p>
+        <h1 className="App-title">World Countries</h1>
+        <p className="App-subtitle">Browse, filter and mark visited countries</p>
       </header>
 
       {loading ? (
-        <div className="loading">Ładowanie danych...</div>
+        <div className="loading">Loading data...</div>
       ) : error ? (
         <div className="error">{error}</div>
       ) : (

@@ -32,5 +32,5 @@ const CountryCard: React.FC<CountryCardProps> = ({ country, isVisited, onToggleV
   );
 };
 
-// Przywrócono React.memo do optymalizacji renderowania
+// Restored React.memo for rendering optimization
 export default React.memo(CountryCard);
