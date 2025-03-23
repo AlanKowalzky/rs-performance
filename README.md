@@ -1,46 +1,75 @@
-# Getting Started with Create React App
+# Aplikacja Kraje Świata
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplikacja React do przeglądania, filtrowania i zaznaczania odwiedzonych krajów świata. Aplikacja pobiera dane z REST Countries API i umożliwia użytkownikowi filtrowanie krajów według regionu, wyszukiwanie według nazwy oraz sortowanie według nazwy lub populacji.
 
-## Available Scripts
+## Funkcjonalności
 
-In the project directory, you can run:
+- Pobieranie i wyświetlanie danych o krajach z REST Countries API
+- Filtrowanie krajów według regionu
+- Wyszukiwanie krajów według nazwy
+- Sortowanie krajów według nazwy lub populacji (rosnąco/malejąco)
+- Zaznaczanie odwiedzonych krajów z zapisem w localStorage
 
-### `npm start`
+## Optymalizacja wydajności
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Aplikacja została zoptymalizowana pod kątem wydajności przy użyciu następujących technik:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Przed optymalizacją
 
-### `npm test`
+*Tutaj zostaną dodane zrzuty ekranu i wyniki profilowania przed optymalizacją*
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Zastosowane optymalizacje
 
-### `npm run build`
+1. **useMemo** - Użyto do zapamiętywania przefiltrowanej, przeszukanej i posortowanej listy krajów, aby uniknąć niepotrzebnych obliczeń przy każdym renderowaniu.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```tsx
+const filteredAndSortedCountries = useMemo(() => {
+  // Filtrowanie i sortowanie krajów
+  // ...
+}, [countries, selectedRegion, searchTerm, sortConfig]);
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. **useCallback** - Użyto do zapamiętywania funkcji obsługi zdarzeń dla filtrowania, wyszukiwania i sortowania, aby zapobiec niepotrzebnym renderowaniom komponentów potomnych.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```tsx
+const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  setSearchTerm(e.target.value);
+}, []);
+```
 
-### `npm run eject`
+3. **React.memo** - Zastosowano do komponentu karty kraju, aby zapobiec ponownemu renderowaniu, gdy jego właściwości nie uległy zmianie.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```tsx
+export default memo(CountryCard);
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. **Właściwe użycie kluczy (key)** - Zapewniono unikalne klucze dla list, aby uniknąć problemów z rekoncyliacją.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```tsx
+<CountryCard
+  key={country.cca3}
+  country={country}
+  isVisited={visitedCountries.includes(country.cca3)}
+  onToggleVisited={onToggleVisited}
+/>
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Po optymalizacji
 
-## Learn More
+*Tutaj zostaną dodane zrzuty ekranu i wyniki profilowania po optymalizacji*
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Technologie
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- React 19
+- TypeScript
+- REST Countries API
+- React Dev Tools Profiler (do analizy wydajności)
+
+## Uruchomienie aplikacji
+
+```bash
+npm install
+npm start
+```
+
+Aplikacja będzie dostępna pod adresem [http://localhost:3000](http://localhost:3000).
