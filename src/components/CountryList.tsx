@@ -16,23 +16,23 @@ const CountryList: React.FC<CountryListProps> = ({ countries, visitedCountries, 
     direction: 'asc'
   });
 
-  // Pobieranie unikalnych regionów dla filtra
+  // Pobieranie unikalnych regionów dla filtra z użyciem useMemo
   const regions = useMemo(() => {
     const uniqueRegions = new Set(countries.map(country => country.region));
     return Array.from(uniqueRegions).sort();
   }, [countries]);
 
-  // Funkcja obsługująca zmianę wyszukiwania
+  // Funkcja obsługująca zmianę wyszukiwania z useCallback
   const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   }, []);
 
-  // Funkcja obsługująca zmianę filtra regionu
+  // Funkcja obsługująca zmianę filtra regionu z useCallback
   const handleRegionChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedRegion(e.target.value);
   }, []);
 
-  // Funkcja obsługująca zmianę sortowania
+  // Funkcja obsługująca zmianę sortowania z useCallback
   const handleSortChange = useCallback((field: 'name' | 'population') => {
     setSortConfig(prevConfig => {
       if (prevConfig.field === field) {
@@ -77,7 +77,7 @@ const CountryList: React.FC<CountryListProps> = ({ countries, visitedCountries, 
           : b.population - a.population;
       }
     });
-  }, [countries, selectedRegion, searchTerm, sortConfig]);
+  }, [countries, searchTerm, selectedRegion, sortConfig]);
 
   return (
     <div className="country-list-container">

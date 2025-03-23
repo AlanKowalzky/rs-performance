@@ -1,12 +1,13 @@
-import js from '@eslint/js';
-import globals from 'globals';
-import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
-import react from 'eslint-plugin-react';
-import tseslint from 'typescript-eslint';
-import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
-import reactCompiler from 'eslint-plugin-react-compiler';
-export default tseslint.config(
+const js = require('@eslint/js');
+const globals = require('globals');
+const reactHooks = require('eslint-plugin-react-hooks');
+const reactRefresh = require('eslint-plugin-react-refresh');
+const react = require('eslint-plugin-react');
+const tseslint = require('typescript-eslint');
+const eslintPluginPrettier = require('eslint-plugin-prettier/recommended');
+const reactCompiler = require('eslint-plugin-react-compiler');
+
+module.exports = tseslint.config(
   { ignores: ['dist'] },
   {
     extends: [

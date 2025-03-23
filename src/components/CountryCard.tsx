@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { Country } from '../types';
 
 interface CountryCardProps {
@@ -32,5 +32,5 @@ const CountryCard: React.FC<CountryCardProps> = ({ country, isVisited, onToggleV
   );
 };
 
-// Używamy React.memo do optymalizacji renderowania
-export default memo(CountryCard);
+// Przywrócono React.memo do optymalizacji renderowania
+export default React.memo(CountryCard);
