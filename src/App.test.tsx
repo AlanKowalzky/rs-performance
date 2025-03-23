@@ -10,6 +10,8 @@ test('renders World Countries heading', () => {
 
 test('renders subtitle text', () => {
   render(<App />);
-  const subtitleElement = screen.getByText(/Browse, filter and mark visited countries/i);
+  const subtitleElement = screen.getByText(
+    /Browse, filter and mark visited countries/i
+  );
   expect(subtitleElement).toBeInTheDocument();
 });
