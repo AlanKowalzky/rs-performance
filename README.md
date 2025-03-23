@@ -70,4 +70,4 @@ Further optimizations could include analyzing dependencies and fine-tuning state
 
 ---
 
-This updated report reflects the significant performance improvements achieved through optimization, with render duration reduced from 130.1 ms to 2 ms, and a corresponding reduction in the number of renders. The images are now linked using Markdown syntax for easy viewing in GitHub README or Markdown preview. If you prefer text links instead of images, let me know, and I can adjust the format accordingly.
+This updated report reflects the significant performance improvements achieved through optimization, with render duration reduced from 130.1 ms to 2 ms, and a corresponding reduction in the number of renders. The images are now linked using Markdown syntax for easy viewing in GitHub README or Markdown preview.
