@@ -7,6 +7,12 @@ const tseslint = require('typescript-eslint');
 const eslintPluginPrettier = require('eslint-plugin-prettier/recommended');
 const reactCompiler = require('eslint-plugin-react-compiler');
 
+// Oczyszczenie globalnych zmiennych z białych znaków
+const cleanGlobals = {};
+Object.entries(globals.browser).forEach(([key, value]) => {
+  cleanGlobals[key.trim()] = value;
+});
+
 module.exports = tseslint.config(
   { ignores: ['dist'] },
   {
@@ -16,7 +22,7 @@ module.exports = tseslint.config(
       eslintPluginPrettier,
     ],
     files: ['**/*.{ts,tsx}'],
-    languageOptions: { ecmaVersion: 2020, globals: globals.browser },
+    languageOptions: { ecmaVersion: 2020, globals: cleanGlobals },
     plugins: {
       react,
       'react-hooks': reactHooks,
